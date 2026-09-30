@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanned QR Content</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><h2>YOUR SCANNED CONTENT</h2></header>
+    <div class="view-card" id="card"><p>Loading…</p></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+    const db = window.supabase.createClient(
+        "https://gxnokcgzrkxkbawrehyi.supabase.co",
+        "sb_publishable_ama1r5GgEnfIMtdyC2U82A_itUx23cW"
+    );
+    const card = document.getElementById("card");
+
+    (async () => {
+        const id = new URLSearchParams(location.search).get("id");
+        if (!id) { card.innerHTML = '<p class="err">No QR code id in this link.</p>'; return; }
+
+        const { data, error } = await db.from("qr_items")
+            .select("text_content, image_url").eq("id", id).single();
+        if (error || !data) { card.innerHTML = '<p class="err">Content not found.</p>'; return; }
+
+        card.innerHTML = "";
+        if (data.image_url) {
+            const img = document.createElement("img");
+            img.src = data.image_url; img.alt = "Shared image";
+            card.appendChild(img);
+        }
+        if (data.text_content) {
+            const p = document.createElement("p");
+            p.textContent = data.text_content;   // textContent prevents HTML injection
+            card.appendChild(p);
+        }
+    })();
+    </script>
+</body>
+</html>

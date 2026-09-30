@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRcode Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header><h2>QR CODE GENERATOR</h2></header>
+        <div class="container">
+            <div class="min-container">
+                <h3>QR Code Generator</h3>
+                <p>QR Code allow smartphone user to access your image and text simple and quickly</p>
+                <p>Enter your image and text below to generate a QR code and download it as image</p>
+
+                <form id="formGenarate">
+                    <div class="input-image" id="imageInput">
+                        <div class="preview-box">
+                            <span id="placeholder">Choose or paste image</span>
+                            <img id="preview" alt="preview">
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*">
+                        <button type="button" id="removeBtn">Remove</button>
+                    </div>
+                    <br>
+                    <input type="text" id="textInput" placeholder="Enter your text" maxlength="500">
+                    <br>
+                    <button id="generateBtn" type="submit" class="btn">Generate QR Code</button>
+                    <p id="status" role="status"></p>
+                </form>
+            </div>
+            <div class="image-container"><img src="qrcodelogo.webp" alt="logo"></div>
+        </div>
+        <div class="output-qrcode" id="output">
+            <h5>Scan Your Code</h5>
+            <div id="qrcode"></div>
+            <p id="linkText"></p>
+            <button type="button" id="downloadBtn" class="btn dl">Download QR Code</button>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html>
